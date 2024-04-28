@@ -70,13 +70,221 @@
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
 # TODO!
+Movie.destroy_all
+Actor.destroy_all
+Studio.destroy_all
+Character.destroy_all
 
 # Generate models and tables, according to the domain model.
 # TODO!
 
+#ANS: Completed through the terminal. I use the domain model I built for hw1
+
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+studio=Studio.new
+studio["name"]="Warner Bros."
+studio.save
+
+warner=Studio.find_by({"name"=>"Warner Bros."})
+
+
+movie=Movie.new
+movie["title"]="Batman Begins"
+movie["year"]="2005"
+movie["MPAA_rating"]="PG-13"
+movie["studio_id"]=warner["id"]
+movie.save
+
+batmanbegins=Movie.find_by({"title"=>"Batman Begins"})
+
+movie=Movie.new
+movie["title"]="The Dark Knight"
+movie["year"]="2008"
+movie["MPAA_rating"]="PG-13"
+movie["studio_id"]=warner["id"]
+movie.save
+
+thedarkknight=Movie.find_by({"title"=>"The Dark Knight"})
+
+movie=Movie.new
+movie["title"]="The Dark Knight Rises"
+movie["year"]="2012"
+movie["MPAA_rating"]="PG-13"
+movie["studio_id"]=warner["id"]
+movie.save
+
+thedarkknightrises=Movie.find_by({"title"=>"The Dark Knight Rises"})
+
+actor=Actor.new
+actor["name"]="Christian Bale"
+actor.save
+
+bale=Actor.find_by({"name"=>"Christian Bale"})
+
+actor=Actor.new
+actor["name"]="Michael Caine"
+actor.save
+
+caine=Actor.find_by({"name"=>"Michael Caine"})
+
+actor=Actor.new
+actor["name"]="Liam Neeson"
+actor.save
+
+neeson=Actor.find_by({"name"=>"Liam Neeson"})
+
+
+actor=Actor.new
+actor["name"]="Katie Holmes"
+actor.save
+
+holmes=Actor.find_by({"name"=>"Katie Holmes"})
+
+
+actor=Actor.new
+actor["name"]="Gary Oldman"
+actor.save
+
+oldman=Actor.find_by({"name"=>"Gary Oldman"})
+
+
+actor=Actor.new
+actor["name"]="Heath Ledger"
+actor.save
+
+ledger=Actor.find_by({"name"=>"Heath Ledger"})
+
+
+actor=Actor.new
+actor["name"]="Aaron Eckhart"
+actor.save
+
+eckhart=Actor.find_by({"name"=>"Aaron Eckhart"})
+
+
+actor=Actor.new
+actor["name"]="Maggie Gyllenhaal"
+actor.save
+
+gyllenhaal=Actor.find_by({"name"=>"Maggie Gyllenhaal"})
+
+
+actor=Actor.new
+actor["name"]="Tom Hardy"
+actor.save
+
+hardy=Actor.find_by({"name"=>"Tom Hardy"})
+
+
+actor=Actor.new
+actor["name"]="Joseph Gorden-Levitt"
+actor.save
+
+joseph=Actor.find_by({"name"=>"Joseph Gorden-Levitt"})
+
+
+actor=Actor.new
+actor["name"]="Anne Hathaway"
+actor.save
+
+hathaway=Actor.find_by({"name"=>"Anne Hathaway"})
+
+
+character=Character.new
+character["name"]="Bruce Wayne"
+character["movie_id"]=batmanbegins["id"]
+character["actor_id"]=bale["id"]
+character.save
+
+
+character=Character.new
+character["name"]="Alfred"
+character["movie_id"]=batmanbegins["id"]
+character["actor_id"]=caine["id"]
+character.save
+
+character=Character.new
+character["name"]="Ra's Al Ghul"
+character["movie_id"]=batmanbegins["id"]
+character["actor_id"]=neeson["id"]
+character.save
+
+character=Character.new
+character["name"]="Rachel Dawes"
+character["movie_id"]=batmanbegins["id"]
+character["actor_id"]=holmes["id"]
+character.save
+
+character=Character.new
+character["name"]="Commissioner Gordon"
+character["movie_id"]=batmanbegins["id"]
+character["actor_id"]=oldman["id"]
+character.save
+
+character=Character.new
+character["name"]="Bruce Wayne"
+character["movie_id"]=thedarkknight["id"]
+character["actor_id"]=bale["id"]
+character.save
+
+character=Character.new
+character["name"]="Joker"
+character["movie_id"]=thedarkknight["id"]
+character["actor_id"]=ledger["id"]
+character.save
+
+character=Character.new
+character["name"]="Harvey Dent"
+character["movie_id"]=thedarkknight["id"]
+character["actor_id"]=eckhart["id"]
+character.save
+
+character=Character.new
+character["name"]="Alfred"
+character["movie_id"]=thedarkknight["id"]
+character["actor_id"]=caine["id"]
+character.save
+
+character=Character.new
+character["name"]="Rachel Dawes"
+character["movie_id"]=thedarkknight["id"]
+character["actor_id"]=gyllenhaal["id"]
+character.save
+
+character=Character.new
+character["name"]="Bruce Wayne"
+character["movie_id"]=thedarkknightrises["id"]
+character["actor_id"]=bale["id"]
+character.save
+
+character=Character.new
+character["name"]="Commissioner Gordon"
+character["movie_id"]=thedarkknightrises["id"]
+character["actor_id"]=oldman["id"]
+character.save
+
+character=Character.new
+character["name"]="Bane"
+character["movie_id"]=thedarkknightrises["id"]
+character["actor_id"]=hardy["id"]
+character.save
+
+character=Character.new
+character["name"]="John Blake"
+character["movie_id"]=thedarkknightrises["id"]
+character["actor_id"]=joseph["id"]
+character.save
+
+character=Character.new
+character["name"]="Selina Kyle"
+character["movie_id"]=thedarkknightrises["id"]
+character["actor_id"]=hathaway["id"]
+character.save
+
+
 
 # Prints a header for the movies output
 puts "Movies"
@@ -85,6 +293,18 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
+movies=Movie.all
+
+for movie in movies
+    name=movie["title"]
+    year=movie["year"]
+    rate=movie["MPAA_rating"]
+    studio_film=Studio.find_by({"id"=>movie["studio_id"]})
+    studio_name=studio_film["name"]
+    puts "#{name} #{year} #{rate} #{studio_name}"
+end
+
+
 
 # Prints a header for the cast output
 puts ""
@@ -94,3 +314,13 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+characters=Character.all
+for character in characters
+    film_search=Movie.find_by({"id"=>character["movie_id"]})
+    film_name=film_search["title"]
+    actor_search=Actor.find_by({"id"=>character["actor_id"]})
+    actor_name=actor_search["name"]
+    character_name=character["name"]
+    puts "#{film_name} #{actor_name} #{character_name}"
+end
+
